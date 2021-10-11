@@ -28,8 +28,6 @@ You can change the list of packages as well. See *defaults/main.yml*.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
 ```YAML
 - hosts: localhost
   roles:
@@ -40,7 +38,7 @@ Warnings
 --------
 
 * The `ll` command counts the total directory size. This can potentially take a long time
-* `sudo` without password. Use on own risk.
+* `sudo` without password. Use at your own risk.
 * You still need to have a font that contains powerline symbols.
 
 License
