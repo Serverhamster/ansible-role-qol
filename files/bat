@@ -1,0 +1,5 @@
+# Use bat as pager for man
+if [ -f $(which bat) ]; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export MANROFFOPT="-c"
+fi

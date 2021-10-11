@@ -1,0 +1,6 @@
+run-shell "powerline-daemon -q"
+{% if ansible_os_family == 'RedHat' %}
+source /usr/share/tmux/powerline.conf
+{% elif ansible_os_family == 'Debian' %}
+source '/usr/share/powerline/bindings/tmux/powerline.conf'
+{% endif %}

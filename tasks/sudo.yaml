@@ -1,0 +1,36 @@
+---
+- name: Enable sudo insults.
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/insults
+    content: |
+      # Insult users when they don't type the correct password
+      Defaults    insults
+    validate: /usr/sbin/visudo -cf %s
+    owner: root
+    group: root
+    mode: '0440'
+  become: true
+
+- name: Configure passwordless sudo for local users.
+  tags: sudo
+  block:
+    - name: "Find out if {{ user }} is in the shadow database."
+      ansible.builtin.getent:
+        database: shadow
+        key: "{{ user }}"
+        fail_key: true
+      register: getent_shadow
+
+    - name: "{{ user }} does not need a password for sudo."
+      ansible.builtin.copy:
+        content: |
+          # Allow {{ user }} to run all commands without a password
+          "{{ user }}" ALL=(ALL) NOPASSWD: ALL
+        dest: "/etc/sudoers.d/{{ user }}"
+        validate: /usr/sbin/visudo -csf %s
+  rescue:
+    - name: Print when getent fails.
+      ansible.builtin.debug:
+        msg: "User {{ user }} is not local. Ignoring passwordless sudo."
+  become: true
+  when: ansible_user_id != "root"

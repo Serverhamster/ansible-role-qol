@@ -1,0 +1,29 @@
+# ~/.bash_aliases
+# File copied by Ansible 'qol' role.
+
+# Colorize iproute2 tools
+alias ip="ip -c"
+
+# Purge leftover configuration files (needs sudo)
+alias purgeconf="sudo apt purge $(dpkg -l | grep '^rc' | awk '{print $2}')"
+
+# Use exa to replace ls for long listings
+if [ -f $(which exa) ]; then
+    alias ll="exa --long --classify --group --group-directories-first --header --git"
+fi
+
+# Use bat as pager for man
+if [ -f $(which batcat) ]; then
+    export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+    export MANROFFOPT="-c"
+fi
+
+# load Powerline
+if [ -f $(which powerline-daemon) ]; then
+    powerline-daemon -q
+    POWERLINE_BASH_CONTINUATION=1
+    POWERLINE_BASH_SELECT=1
+fi
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+    source /usr/share/powerline/bindings/bash/powerline.sh
+fi

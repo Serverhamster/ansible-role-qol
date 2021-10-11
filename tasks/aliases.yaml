@@ -1,0 +1,30 @@
+---
+# Debian 11's .bashrc sources ~/.bash_aliases
+# Fedora 34 reads ~/.bashrc.d
+
+- name: Bash configurations using ~/.bashrc.d.
+  block:
+    - name: Ensure ~/.bashrc.d directory exists.
+      ansible.builtin.file:
+        path: ~/.bashrc.d
+        state: directory
+        mode: '0755'
+    
+    - name: Add bash configuration files to ~/.bashrc.d.
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ homepath }}/.bashrc.d/{{ item }}"
+        mode: '0644'
+      loop:
+        - bat
+        - iproute2
+        - lsd
+        - powerline
+  when: ansible_os_family == "RedHat"  
+
+- name: Add ~/.bash_aliases to home.
+  ansible.builtin.copy:
+    src: bash_aliases
+    dest: "{{ homepath }}/.bash_aliases"
+    mode: '0644'
+  when: ansible_os_family == "Debian"

@@ -1,0 +1,25 @@
+---
+# Software packages.
+
+- name: Common package names.
+  tags: apt, dnf
+  ansible.builtin.package:
+    name: "{{ packages_common }}"
+    state: present
+  become: true
+
+- name: Packages for Debian-based distributions.
+  tags: apt
+  ansible.builtin.apt:
+    name: "{{ packages_debian }}"
+    state: present
+  become: true
+  when: ansible_os_family == "Debian"
+
+- name: Packages for Red Hat Linux-based distributions.
+  tags: dnf
+  ansible.builtin.dnf:
+    name: "{{ packages_redhat }}"
+    state: present
+  become: true
+  when: ansible_os_family == "RedHat"

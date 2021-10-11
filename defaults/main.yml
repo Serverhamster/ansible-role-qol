@@ -1,0 +1,12 @@
+---
+# Choice of packages. Do not list tmux or vim here
+packages_common: bat, curl, htop, ncdu, powerline
+packages_debian: exa
+packages_redhat: lsd, vim-powerline
+
+# Install and configure tmux?
+tmux: true
+vim: true
+
+# Users that receive the improvements of this role
+user: "{{ ansible_user_id }}"

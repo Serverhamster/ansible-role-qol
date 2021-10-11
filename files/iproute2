@@ -1,0 +1,2 @@
+# Colorize iproute2 tools
+alias ip="ip -c"

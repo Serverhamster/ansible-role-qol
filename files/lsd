@@ -1,0 +1,5 @@
+# Use exa to replace ls
+if [ -f $(which lsd) ]; then
+  alias ll="lsd --classify --long --total-size"
+  alias ls="lsd --classify"
+fi

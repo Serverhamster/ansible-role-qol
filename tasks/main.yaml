@@ -1,0 +1,48 @@
+---
+# tasks file for qol
+
+- name: "Find home directory of {{ user }}."
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ user }}"
+    fail_key: true
+    split: ':'
+  register: getent_passwd
+
+- name: "Show home directory of {{ user }}."
+  ansible.builtin.debug:
+    msg: "{{ getent_passwd['ansible_facts']['getent_passwd'][user][4] }} found"
+- name: "Set path to home directory of {{ user }}."
+  set_fact:
+    homepath: "{{ getent_passwd['ansible_facts']['getent_passwd'][user][4] }}"
+
+- name: Indispensable packages.
+  ansible.builtin.import_tasks: packages.yaml
+
+- name: Indispensable aliases.
+  ansible.builtin.import_tasks: aliases.yaml
+
+- name: tmux.
+  ansible.builtin.import_tasks: tmux.yaml
+  when: tmux
+
+- name: vim.
+  ansible.builtin.import_tasks: vim.yaml
+  when: vim
+
+- name: Add user to systemd-journal group.
+  ansible.builtin.command:
+    cmd: "usermod --append --groups systemd-journal {{ user }}"
+  when: ansible_user_id != 'root'
+  become: yes
+
+- name: Check the existence of sudo.
+  tags: sudo
+  ansible.builtin.stat:
+    path: /usr/bin/sudo
+  register: statsudo
+
+- name: Passwordless sudo.
+  tags: sudo
+  ansible.builtin.import_tasks: sudo.yaml
+  when: statsudo.stat.executable
