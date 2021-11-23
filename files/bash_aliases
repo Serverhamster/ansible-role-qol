@@ -5,7 +5,7 @@
 alias ip="ip -c"
 
 # Purge leftover configuration files (needs sudo)
-#alias purgeconf="sudo apt purge $(dpkg -l | grep '^rc' | awk '{print $2}')"
+alias purgeconf="sudo apt purge $(dpkg -l | grep '^rc' | awk '{print $2}')"
 
 # Use exa to replace ls for long listings
 if [ -f $(command -v exa) ]; then
