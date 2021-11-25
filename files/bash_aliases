@@ -18,7 +18,7 @@ fi
 if [ -f $(command -v batcat) ]; then
     export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
     export MANROFFOPT="-c"
-    alias cat=bat
+    alias cat=batcat
 fi
 
 # load Powerline
