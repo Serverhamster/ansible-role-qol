@@ -8,18 +8,21 @@ alias ip="ip -c"
 alias purgeconf="sudo apt purge $(dpkg -l | grep '^rc' | awk '{print $2}')"
 
 # Use exa to replace ls for long listings
-if [ -f $(which exa) ]; then
+if [ -f $(command -v exa) ]; then
+ 	alias ls=exa
+ 	alias la="exa --all"
     alias ll="exa --long --classify --group --group-directories-first --header --git"
 fi
 
 # Use bat as pager for man
-if [ -f $(which batcat) ]; then
+if [ -f $(command -v batcat) ]; then
     export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
     export MANROFFOPT="-c"
+    alias cat=batcat
 fi
 
 # load Powerline
-if [ -f $(which powerline-daemon) ]; then
+if [ -f $(command -v powerline-daemon) ]; then
     powerline-daemon -q
     POWERLINE_BASH_CONTINUATION=1
     POWERLINE_BASH_SELECT=1

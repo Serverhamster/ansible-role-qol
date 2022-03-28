@@ -1,5 +1,10 @@
 # Use bat as pager for man
-if [ -f $(which bat) ]; then
+if [ -f $(command -v bat) ]; then
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   export MANROFFOPT="-c"
+fi
+
+# set alias for cat
+if [ -f $(command -v bat) ]; then
+  alias cat=bat
 fi

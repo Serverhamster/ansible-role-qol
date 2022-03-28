@@ -2,4 +2,5 @@
 if [ -f $(which lsd) ]; then
   alias ll="lsd --classify --long --total-size"
   alias ls="lsd --classify"
+  alias la="lsd --all"
 fi
