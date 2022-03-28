@@ -1,6 +1,6 @@
 ---
 # Choice of packages. Do not list tmux or vim here
-packages_common: bat, curl, htop, ncdu, powerline
+packages_common: bat, curl, htop, ncdu, powerline, ripgrep
 packages_debian: exa
 packages_redhat: lsd, vim-powerline
 
