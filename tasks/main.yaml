@@ -1,6 +1,8 @@
 ---
 # tasks file for qol
 
+# TODO: locales instellen
+
 - name: "Find home directory of {{ user }}."
   ansible.builtin.getent:
     database: passwd
@@ -45,4 +47,4 @@
 - name: Passwordless sudo.
   tags: sudo
   ansible.builtin.import_tasks: sudo.yaml
-  when: statsudo.stat.executable
+  when: statsudo.stat.executable is defined

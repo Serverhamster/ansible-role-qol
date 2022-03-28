@@ -16,7 +16,7 @@ galaxy_info:
   # - CC-BY-4.0
   license: BSD-3-Clause
 
-  min_ansible_version: 2.9
+  min_ansible_version: '2.9'
 
   # If this a Container Enabled role, provide the minimum Ansible Container version.
   # min_ansible_container_version:
@@ -31,10 +31,10 @@ galaxy_info:
   - name: Fedora
     versions:
     - all
-    - 34
+    - '34'
   - name: Debian
     versions:
-    - 11.0
+    - bullseye
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is a keyword that describes
